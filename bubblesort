@@ -1,0 +1,52 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+namespace SortOdPetra
+{
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			Read.Load();
+		}
+	}
+	public class Read
+	{
+		public static void Load()
+		{
+		  string[] fileContent = File.ReadAllText(@"C:\Users\Michal\source\repos\SortOdPetra\SortOdPetra\numbers.txt").Split(new char[] { ' ', '\t', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+          int[] intArray = new int[fileContent.Length];		
+          int holder = 0;
+          for (int i = 0; i < fileContent.Length; i++)
+          {
+	           if (int.TryParse(fileContent[i], out holder))
+	           {
+		           intArray[i] = holder;
+	           }
+          }
+			BubbleSort(intArray);
+			string[] x = intArray.Select(i => Convert.ToString(i)).ToArray();
+			File.WriteAllLines(@"C:\Users\Michal\source\repos\SortOdPetra\SortOdPetra\numbers1.txt",x);
+		}
+		static void BubbleSort(int[] arr)
+		{
+			for (int i = 0; i < arr.Length - 1; i++)
+			{
+				for (int j = 0; j < arr.Length - i - 1; j++)
+				{
+					if (arr[j + 1] < arr[j])
+					{
+						int tmp = arr[j + 1];
+						arr[j + 1] = arr[j];
+						arr[j] = tmp;
+					}
+				}
+			}
+		}
+	}
+
+	
+}
